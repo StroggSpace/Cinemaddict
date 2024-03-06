@@ -1,7 +1,7 @@
-# Проект «{{projectTitle}}»
+# Проект «Киноман»
 
-* Студент: [{{userName}}]({{userProfile}}).
-* Наставник: `Неизвестно`.
+- Студент: [Юрий Иванов]({{userProfile}}).
+- Наставник: `null`.
 
 ---
 
@@ -50,4 +50,5 @@ git clone SSH-адрес_вашего_форка
 
 [check-image]: https://github.com/htmlacademy-ecmascript/{{userId}}-{{projectName}}/workflows/Project%20check/badge.svg?branch=master
 [check-url]: https://github.com/htmlacademy-ecmascript/{{userId}}-{{projectName}}/actions
+
 # Cinemaddict
