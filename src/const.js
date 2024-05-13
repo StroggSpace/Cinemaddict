@@ -91,3 +91,10 @@ export const POSTERS = [
 export const BOOLEAN = [true, false];
 
 export const COMMENT_EMOTION = ["smile", "sleeping", "puke", "angry"];
+
+export const FilterType = {
+  ALL: "all",
+  WATCHLIST: "watchlist",
+  HISTORY: "history",
+  FAVORITES: "favorites",
+};

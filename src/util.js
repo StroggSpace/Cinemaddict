@@ -1,3 +1,5 @@
+import { FilterType } from "./const";
+
 //Генератор псевдослучайных чисел в диапазоне от min до max
 
 export function getRandomNumber(min, max) {
@@ -69,3 +71,44 @@ export function commentDate(date) {
       .padStart(2, "0")}:${date.getMinutes().toString().padStart(2, "0")}`;
   }
 }
+
+export function getUserRank(films) {
+  const userRank = {
+    novice: {
+      title: "Novice",
+      value: 1,
+    },
+    fan: {
+      title: "Fan",
+      value: 3,
+    },
+    movieBuff: {
+      title: "Movie Buff",
+      value: 5,
+    },
+  };
+
+  const watchedFilmCount = films.filter(
+    (film) => film.userDetails.alreadyWatched
+  ).length;
+
+  if (watchedFilmCount >= userRank.movieBuff.value) {
+    return userRank.movieBuff.title;
+  } else if (watchedFilmCount >= userRank.fan.value) {
+    return userRank.fan.title;
+  } else if (watchedFilmCount >= userRank.novice.value) {
+    return userRank.novice.title;
+  } else {
+    return "Trainee";
+  }
+}
+
+export const filter = {
+  [FilterType.ALL]: (films) => [...films],
+  [FilterType.WATCHLIST]: (films) =>
+    films.filter((film) => film.userDetails.watchlist),
+  [FilterType.HISTORY]: (films) =>
+    films.filter((film) => film.userDetails.alreadyWatched),
+  [FilterType.FAVORITES]: (films) =>
+    films.filter((film) => film.userDetails.favorite),
+};

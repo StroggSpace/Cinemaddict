@@ -4,10 +4,11 @@ import Filters from "../view/filters";
 import FilmList from "../view/filmList";
 import FilmCard from "../view/filmCard";
 import ShowMoreButton from "../view/showMoreButton";
+import UserRank from "../view/userRank";
+import FooterStat from "../view/footerStat";
 import Popup from "../view/popup";
 
 export default class FilmPresenter {
-  #filtersComponent = new Filters();
   #sortListComponent = new SortList();
   #filmListComponent = new FilmList();
   #showMoreButton = new ShowMoreButton();
@@ -23,11 +24,28 @@ export default class FilmPresenter {
     this.#commentsModel = commentsModel;
     this.#films = [...this.#filmsModel.films];
 
-    render(this.#filtersComponent, this.#container);
+    this.#renderUserStat(filmsModel);
+    this.#renderFooterStat(filmsModel);
+    this.#renderFilters(filmsModel);
     render(this.#sortListComponent, this.#container);
     render(this.#filmListComponent, this.#container);
 
     this.#renderFilmList();
+  };
+
+  #renderFilters = (films) => {
+    const filtersComponent = new Filters(films);
+    render(filtersComponent, this.#container);
+  };
+
+  #renderUserStat = (films) => {
+    const userRankComponent = new UserRank(films);
+    render(userRankComponent, document.querySelector(".header"));
+  };
+
+  #renderFooterStat = (films) => {
+    const footerStatComponent = new FooterStat(films);
+    render(footerStatComponent, document.querySelector(".footer__statistics"));
   };
 
   #renderFilmList = () => {

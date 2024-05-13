@@ -28,13 +28,6 @@ const getFilmInfo = () => ({
   description: DESCRIPTIONS[getRandomNumber(0, 6)],
 });
 
-const getUserDetails = () => ({
-  watchlist: BOOLEAN[getRandomNumber(0, 1)],
-  alreadyWatched: BOOLEAN[getRandomNumber(0, 1)],
-  watchingDate: generateRandomDate(new Date(2023, 8, 10), new Date()),
-  favorite: BOOLEAN[getRandomNumber(0, 1)],
-});
-
 const getRelease = () => ({
   date: generateRandomDate(new Date(2000, 3, 20), new Date()),
   releaseCountry: COUNTRIES[getRandomNumber(0, 6)],
@@ -50,6 +43,7 @@ export const generateFilms = () => {
     const filmCommentsCount = hasComment ? getRandomNumber(1, 10) : 0;
 
     totalCommentsCount += filmCommentsCount;
+    const alreadyWatched = BOOLEAN[getRandomNumber(0, 1)];
 
     return {
       id: String(index + 1),
@@ -59,6 +53,14 @@ export const generateFilms = () => {
           )
         : [],
       filmInfo: film,
+      userDetails: {
+        watchlist: BOOLEAN[getRandomNumber(0, 1)],
+        alreadyWatched,
+        watchingDate: alreadyWatched
+          ? generateRandomDate(new Date(2023, 8, 10), new Date())
+          : null,
+        favorite: BOOLEAN[getRandomNumber(0, 1)],
+      },
     };
   });
 };
