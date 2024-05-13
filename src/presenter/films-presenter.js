@@ -1,4 +1,4 @@
-import { render } from "../render";
+import { render } from "../framework/render";
 import SortList from "../view/sortList";
 import Filters from "../view/filters";
 import FilmList from "../view/filmList";
@@ -39,14 +39,10 @@ export default class FilmPresenter {
     if (this.#films.length > 5) {
       render(this.#showMoreButton, this.#filmListComponent.element);
 
-      const showMoreButtonLink = document.querySelector(
-        ".films-list__show-more"
-      );
-
       let startIndex = 5;
       let endIndex = Math.min(10, this.#films.length);
 
-      showMoreButtonLink.addEventListener("click", () => {
+      const showMore = () => {
         const filmsToRender = this.#films.slice(startIndex, endIndex);
         filmsToRender.forEach((film) => {
           this.#renderFilm(film);
@@ -56,9 +52,12 @@ export default class FilmPresenter {
         endIndex = Math.min(endIndex + 5, this.#films.length);
 
         if (startIndex >= this.#films.length) {
-          showMoreButtonLink.remove();
+          this.#showMoreButton.element.remove();
+          this.#showMoreButton.removeElement();
         }
-      });
+      };
+
+      this.#showMoreButton.setClickHandler(showMore);
     }
   };
 
@@ -80,9 +79,7 @@ export default class FilmPresenter {
       const popup = new Popup(film, filmComments);
       document.body.appendChild(popup.element);
 
-      popup.element
-        .querySelector(".film-details__close")
-        .addEventListener("click", closeHandler);
+      popup.setClickHandler(closeHandler);
       document.addEventListener("keydown", keyHandler);
       document.body.classList.add("hide-overflow");
     };
@@ -95,15 +92,13 @@ export default class FilmPresenter {
       document.body.classList.remove("hide-overflow");
     };
 
-    filmComponent.element
-      .querySelector(".film-card__link")
-      .addEventListener("click", () => {
-        const popup = document.querySelector(".film-details");
+    filmComponent.setClickHandler(() => {
+      const popup = document.querySelector(".film-details");
 
-        if (!popup) {
-          openPopup();
-        }
-      });
+      if (!popup) {
+        openPopup();
+      }
+    });
 
     render(filmComponent, this.#filmListComponent.element);
   };

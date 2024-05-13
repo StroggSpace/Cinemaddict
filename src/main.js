@@ -2,7 +2,7 @@ import FilmPresenter from "./presenter/films-presenter";
 import FilmsModel from "./model/films";
 import CommentsModel from "./model/comments";
 
-import { render } from "./render.js";
+import { render } from "./framework/render";
 
 const siteMainElement = document.querySelector(".main");
 

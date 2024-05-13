@@ -17,6 +17,10 @@ module.exports = {
         exclude: /(node_modules)/, // Файлы из директории node_modules игнорируются
         use: ["babel-loader"], // Используемый лоадер
       },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ],
   },
 };

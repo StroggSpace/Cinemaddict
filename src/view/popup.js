@@ -1,5 +1,5 @@
-import { createElement } from "../render";
 import { formatTime, formatDate, commentDate } from "../util";
+import AbstractView from "../framework/view/abstract-view";
 
 const createPopup = ({ filmInfo, comments }, commentsArray) => {
   const {
@@ -173,12 +173,12 @@ const createPopup = ({ filmInfo, comments }, commentsArray) => {
 </section>
 `;
 };
-export default class Popup {
-  #element = null;
+export default class Popup extends AbstractView {
   #film = null;
   #comments = null;
 
   constructor(film, comments) {
+    super();
     this.#film = film;
     this.#comments = comments;
   }
@@ -186,15 +186,15 @@ export default class Popup {
     return createPopup({ ...this.#film }, this.#comments);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
+  setClickHandler = (callback) => {
+    this._callback.click = callback;
+    this.element
+      .querySelector(".film-details__close")
+      .addEventListener("click", this.#clickHandler);
+  };
 
-    return this.#element;
-  }
-
-  removeElement() {
-    this.#element = null;
-  }
+  #clickHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.click();
+  };
 }
