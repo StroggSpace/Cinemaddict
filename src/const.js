@@ -1,4 +1,4 @@
-export const FILM_COUNT = 7;
+export const FILM_COUNT = 12;
 
 export const FILM_TITLE = [
   "The Matrix",

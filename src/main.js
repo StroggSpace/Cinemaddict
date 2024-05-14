@@ -1,14 +1,12 @@
-import FilmPresenter from "./presenter/films-presenter";
+import FilmListPresenter from "./presenter/filmList-presenter";
 import FilmsModel from "./model/films";
 import CommentsModel from "./model/comments";
-
-import { render } from "./framework/render";
 
 const siteMainElement = document.querySelector(".main");
 
 const filmsModel = new FilmsModel();
 const commentsModel = new CommentsModel(filmsModel);
 
-const filmsPresenter = new FilmPresenter();
+const filmListPresenter = new FilmListPresenter();
 
-filmsPresenter.init(siteMainElement, filmsModel, commentsModel);
+filmListPresenter.init(siteMainElement, filmsModel, commentsModel);

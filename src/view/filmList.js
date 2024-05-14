@@ -1,12 +1,22 @@
 import AbstractView from "../framework/view/abstract-view";
 
-const createFilmList = () => `<section class="films">
+const createFilmList = (filmsCount) => `<section class="films">
 <section class="films-list">
-  <h2 class="films-list__title">There are no movies in our database</h2>
+ ${
+   !filmsCount
+     ? `<h2 class="films-list__title">There are no movies in our database</h2>`
+     : ""
+ }
 </section>
 </section>`;
 export default class FilmList extends AbstractView {
+  #filmsCount = null;
   get template() {
-    return createFilmList();
+    return createFilmList(this.#filmsCount);
+  }
+
+  constructor(filmsCount) {
+    super();
+    this.#filmsCount = filmsCount;
   }
 }
